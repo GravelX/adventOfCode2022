@@ -74,7 +74,7 @@ def playTheGuide():
     for line in data:
         opps, outcome = line.split(" ")
         player = whatToPlay(opps, outcome.strip())
-        total_score += roshamboScore(opps, player.strip())
+        total_score += roshamboScore(opps, player)
 
     print("Part2 - Total score from the strategy guide is",total_score)
 
