@@ -10,10 +10,7 @@ file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),file_name)
 # as well as the number of calories he is carrying.
 def findMaxCalories():
     data = open(file_path, "r").readlines()
-    maxElf = 0
-    maxCal = 0
-    currentCount = 0
-    elfCounter = 0
+    maxElf, maxCal, currentCount, elfCounter = 0, 0, 0, 0
 
     for line in data:
         if line == "\n":
