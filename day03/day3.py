@@ -31,7 +31,7 @@ def getPriority(item):
     if ord(item) > 96 and ord(item) < 123:
         # Lowercase item types 'a' through 'z' have priorities 1 through 26
         return ord(item) - 96
-    elif ord(item) > 64 and ord(item) <91:
+    elif ord(item) > 64 and ord(item) < 91:
         # Uppercase item types 'A' through 'Z' have priorities 27 through 52
         return ord(item) - 38
     else:
