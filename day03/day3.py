@@ -23,16 +23,16 @@ def addPriorities():
                 priorities += getPriority(item)
                 break
     
-    print("The sum of all missplaced items' priorities is", priorities)
+    print("The sum of all missplaced items' priorities is", priorities, end=".\n")
 
 # ------------------------------------------
 # Returns the priority value of the item
 def getPriority(item):
     if ord(item) > 96 and ord(item) < 123:
-        # Lowercase item types a through z have priorities 1 through 26
+        # Lowercase item types 'a' through 'z' have priorities 1 through 26
         return ord(item) - 96
     elif ord(item) > 64 and ord(item) <91:
-        # Uppercase item types A through Z have priorities 27 through 52
+        # Uppercase item types 'A' through 'Z' have priorities 27 through 52
         return ord(item) - 38
     else:
         raise Exception("Invalid item: Cannot find a priority.")
@@ -45,17 +45,18 @@ def addBadges():
 
     while True:
         elf1 = data.readline().strip()
-        if elf1 == "": break
+        if elf1 == "": break # End of file reached
         elf2 = data.readline().strip()
         elf3 = data.readline().strip()
         if elf2 == "" or elf3 == "": raise Exception("Cannot form a complete trio of Elves.")
 
         for item in elf1:
             if item in elf2 and item in elf3:
+                # Badge item found
                 priorities += getPriority(item)
                 break
 
-    print("The sum of all badges' priorities is", priorities)
+    print("The sum of all badges' priorities is", priorities, end=".\n")
 
 # ------------------------------------------
 # Main
