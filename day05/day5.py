@@ -33,6 +33,7 @@ def init():
 
     # Init moves
     moves = [re.findall(r'\d+',l) for l in data[-503:]] # [qty, from, to]
+    moves = [[int(v) for v in m] for m in moves]
 
     return stacks, moves
 
@@ -50,9 +51,8 @@ def display(stacks, model):
 def topCrates9000(stacks, moves):
     # Apply the move on the stack
     for move in moves:
-        for i in range(int(move[0])):
-            crate = stacks[int(move[1])-1].pop()
-            stacks[int(move[2])-1].append(crate)
+        qty, origin, dest = move
+        for i in range(qty): stacks[dest-1].append(stacks[origin-1].pop())
 
     # Display
     display(stacks, "9000")
@@ -63,10 +63,12 @@ def topCrates9000(stacks, moves):
 def topCrates9001(stacks, moves):
     # Apply the move on the stack
     for move in moves:
-        payload = stacks[int(move[1])-1][-int(move[0]):]
+        qty, origin, dest = move
+        payload = stacks[origin-1][-qty:]
+        
         for crate in payload:
-            stacks[int(move[1])-1].pop()
-            stacks[int(move[2])-1].append(crate)
+            stacks[origin-1].pop()
+            stacks[dest-1].append(crate)
 
     # Display
     display(stacks, "9001")
