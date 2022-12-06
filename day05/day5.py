@@ -38,8 +38,8 @@ def init():
 
 # ------------------------------------------
 # Display the crates on top of the stacks
-def display(stacks):
-    print("Crates on top after the rearrangement: ",end="")
+def display(stacks, model):
+    print("Crates on top after the rearrangement (v"+model+"): ",end="")
     for s in stacks:
         print(s[-1],end="")
     print("")
@@ -55,7 +55,7 @@ def topCrates9000(stacks, moves):
             stacks[int(move[2])-1].append(crate)
 
     # Display
-    display(stacks)
+    display(stacks, "9000")
 
 # ------------------------------------------
 # Find the crates on top of the stacks after the rearrangement
@@ -69,7 +69,7 @@ def topCrates9001(stacks, moves):
             stacks[int(move[2])-1].append(crate)
 
     # Display
-    display(stacks)
+    display(stacks, "9001")
 
 # ------------------------------------------
 # Main
