@@ -35,14 +35,14 @@ class Directory:
         return size
     
     # Sums all folders within that are 100'000 or less in size
-    def sumAllSmallFoldersWithin(self):
+    def sumAllFoldersUnder(self, max):
         size = 0
         for item in self.contents:
             if type(item) is Directory:
                 sub_folder_size = item.size()
-                if sub_folder_size <= 100000:
+                if sub_folder_size <= max:
                     size += sub_folder_size
-                size += item.sumAllSmallFoldersWithin()
+                size += item.sumAllFoldersUnder(max)
 
         return size
 
@@ -172,7 +172,7 @@ def main():
     print("\n")
 
     # Part 1
-    print("The sum of the total sizes of directories with a total size of at most 100000:",fileTree.sumAllSmallFoldersWithin())
+    print("The sum of the total sizes of directories with a total size of at most 100000:",fileTree.sumAllFoldersUnder(100000))
     # Part 2
     freeDiskSpace(fileTree) 
 
