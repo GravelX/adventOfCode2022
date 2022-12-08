@@ -58,7 +58,17 @@ class Directory:
 
     # Add item to directory content
     def contains(self, item):
-        self.contents.append(item)
+        already_here = False
+        if type(item) is Directory:
+            for e in self.contents:
+                if type(e) is Directory and e.name == item.name:
+                    already_here = True
+        elif type(item) is File:
+            for e in self.contents:
+                if type(e) is File and e.name == item.name and e.size == item.size:
+                    # Assuming no 2 files have the same name AND size
+                    already_here = True
+        if not already_here: self.contents.append(item)
 
     # Graphically displays contents of the dir
     def printContents(self, level=1):
