@@ -67,7 +67,7 @@ def main():
     cpu = CPU(crt)
     feedCPU(cpu) # Part 2
     # Part 1
-    print("The sum of the signal strengths is",cpu.sig_strength_sum,end=".\n")
+    print("\nThe sum of the signal strengths is",cpu.sig_strength_sum,end=".\n")
 
 if __name__ == "__main__":
     main()
