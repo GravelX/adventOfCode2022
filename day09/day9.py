@@ -68,18 +68,6 @@ def simulateRope(knots):
     print("The tail of the rope visited",len(visited_positions),"positions at least once.")
 
 # ------------------------------------------
-# Displays the grid and the nodes in it (debugging)
-def printGridState(rope):
-    # grid size hardcoded for part 1 test input
-    grid = [["." for i in range(5)] for j in range(6)]
-    for k, knot in enumerate(reversed(rope)):
-        if k==len(rope)-1:grid[knot.x][knot.y]="H"
-        else:grid[knot.x][knot.y]=str(len(rope)-1-k)
-    for x in reversed(range(len(grid[0]))):
-        for y in range(len(grid)):print(grid[y][x],end=" ")
-        print("")
-
-# ------------------------------------------
 # Main
 def main():
     # Part 1
