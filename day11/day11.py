@@ -1,4 +1,4 @@
-from tqdm import tqdm
+from tqdm.auto import tqdm
 from utils import loadMonkers, displayMonkeys
 
 # ==========================================
@@ -15,19 +15,18 @@ def simulateMonkeys(rounds, panic_mode):
     monkeys = loadMonkers(panic_mode)
     monkey_business = []
 
-    #for r in tqdm(range(rounds)):
-    for r in range(rounds):
+    for r in tqdm(range(rounds)):
+    #for r in range(rounds):
         for m in monkeys:
             targets = []
             # For each item, compute new worry levels and what monkey to throw it to.
             for i in range(len(m.items)):
                 targets.append(m.inspect_item(i))
-                #print("item",i,"with value",m.items[i],"thrown to monkey",targets[i])
             # Throw the items
             for i in range(len(m.items)):
                 monkeys[targets[i]].items.append(m.items[i])
             m.items = []
-
+    
     # Get number of inspections performed by each monkey
     for m in monkeys: monkey_business.append(m.inspections)
     monkey_business.sort()
@@ -41,7 +40,7 @@ def main():
     simulateMonkeys(rounds=20, panic_mode=False)
 
     # Part 2
-    #simulateMonkeys(rounds=10000, panic_mode=True)
+    simulateMonkeys(rounds=10000, panic_mode=True)
 
 if __name__ == "__main__":
     main()
