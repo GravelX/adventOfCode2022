@@ -12,7 +12,7 @@ def displayMonkeys(monkeys):
 
 # ------------------------------------------
 # Load Monkers : Generate the monkey objects from input
-def loadMonkers(panic_mode):
+def loadMonkers():
     file_name = "input.txt"
     monkeys = []
     items, args, rule = None, None, []
@@ -35,10 +35,7 @@ def loadMonkers(panic_mode):
             rule.append(int(line[-1]))
             if items is None or args is None or not rule:
                 raise Exception("Cannot create monkey: Invalid arguments\nitems:",items,"\nargs:",args,"\nrule:",rule)
-            if panic_mode:
-                monkeys.append(Monkey(items, args, rule, 1))
-            else:
-                monkeys.append(Monkey(items, args, rule, 3))
+            monkeys.append(Monkey(items, args, rule))
             items, args, rule = None, None, []
 
     return monkeys

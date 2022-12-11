@@ -1,4 +1,4 @@
-from tqdm.auto import tqdm
+import math
 from utils import loadMonkers, displayMonkeys
 
 # ==========================================
@@ -12,11 +12,18 @@ from utils import loadMonkers, displayMonkeys
 # Rounds: number of rounds simulated
 # Panic Mode: True if the worry levels should no longer be divided by 3
 def simulateMonkeys(rounds, panic_mode):
-    monkeys = loadMonkers(panic_mode)
+    monkeys = loadMonkers()
     monkey_business = []
 
-    for r in tqdm(range(rounds)):
-    #for r in range(rounds):
+    if panic_mode:
+        # Compute smallest commun multiple of all monkeys' division tests
+        ppcm = math.lcm(*[m.rule[0] for m in monkeys])
+        # Change monkeys behavior when panicking
+        for m in monkeys:
+            m.panicking = True
+            m.ppcm = ppcm
+
+    for r in range(rounds):
         for m in monkeys:
             targets = []
             # For each item, compute new worry levels and what monkey to throw it to.
@@ -37,9 +44,11 @@ def simulateMonkeys(rounds, panic_mode):
 # Main
 def main():
     # Part 1
+    print("Part 1: ",end="")
     simulateMonkeys(rounds=20, panic_mode=False)
 
     # Part 2
+    print("Part 2: ",end="")
     simulateMonkeys(rounds=10000, panic_mode=True)
 
 if __name__ == "__main__":
