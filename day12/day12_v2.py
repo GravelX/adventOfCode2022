@@ -1,6 +1,6 @@
 import os
 
-# Copy pasting shit is part of every programmers day to day life.
+# Copy pasting shit is part of every programmers journey.
 # Fuck coding dijkstra manually son this shit aint worth it.
 # I cheaped out for day 12, lord forgive me.
 
