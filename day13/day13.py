@@ -22,8 +22,9 @@ def inputSecured():
         for char in line:
             if char not in characters_allowed: return False, char
     return True, None
+
 # ------------------------------------------
-# Adds the indices of the pairs of pack that are in the right order
+# Adds the indices of the pairs of packets that are in the right order
 def findOrderedPackets():
     secured, err = inputSecured()
     if not secured: raise Exception("Code should not be ran, unexpected character:",err)
@@ -54,16 +55,24 @@ def findOrderedPackets():
     # Add up indices of ordered packet pairs
     print("Sum of the indices of ordered packet pairs:",sum(ordered_indices))
 
+# ------------------------------------------
+# Performs the check whether a packet ends up empty before the other
 def compareExistence(a, b):
     if a is None: return True       # inputs are in the right order
     elif b is None: return False    # inputs are not in the right order
     else: return None               # continue
 
+# ------------------------------------------
+# Compare two packet items and returns
+#   True: If they imply the packets are in correct order
+#   False: If they imply the packets or not ordered
+#   None: If no determination can be made
 def compareTwoValues(a, b):
     if verbose: print("Compare",a,"to",b,end=" --> ")
     if (type(a) is not int and type(a) is not list and a is not None) or (type(b) is not int and type(b) is not list and b is not None):
         raise Exception("Error! Values can only be int or list, or None. Got",type(a),"and",type(b))
     
+    # check if one packet item empty
     ordered = compareExistence(a, b)
     if ordered is True:
         if verbose: print("Ordered!")
@@ -72,6 +81,7 @@ def compareTwoValues(a, b):
         if verbose: print("Wrong order!")
         return False
     else: # continue
+        # If they are both ints, check order conclusion can be reached
         if type(a) is int and type(b) is int:
             if a < b:
                 if verbose: print("Ordered!")
@@ -79,12 +89,15 @@ def compareTwoValues(a, b):
             elif a > b:
                 if verbose: print("Wrong order!")
                 return False
+        # If only one of the packet item is int, convert it to a list of itself
         elif type(a) is int:
             a = [a]
             return compareTwoValues(a, b)
         elif type(b) is int:
             b = [b]
             return compareTwoValues(a, b)
+        # If both packet items are list, recursively compare the items inside
+        # (or until ordering conclusion is reached)
         else:
             sub_result = None
             for values in itertools.zip_longest(a, b):
@@ -103,8 +116,12 @@ def compareTwoValues(a, b):
                 if verbose: print("Wrong order!")
                 return False
 
+    # No ordering conclusion reached when comparing the items if this line is reached reached
     if verbose: print("Continue (same value).")
 
+# ------------------------------------------
+# Inject the decoder keys and order all packets of the input.
+# Display the sum of the indices of the keys after sorting.
 def orderAllPackets():
     secured, err = inputSecured()
     if not secured: raise Exception("Code should not be ran, unexpected character:",err)
@@ -141,7 +158,7 @@ def orderAllPackets():
     for i, p in enumerate(packets):
         if p == [[2]]: key1 = i+1
         elif p == [[6]]: key2 = i+1
-    print("Decodes key of the distress signal:",key1*key2)
+    print("Decoder key of the distress signal:",key1*key2)
 
 # ------------------------------------------
 # Main
